@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>JavaScript Sandbox</title>
+  <meta charset="UTF-8" />
+
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+
+<body>
+  <div class="container flex flex-column">
+    <p class="app-heading">Concurrent Async Task JS Engine</p>
+    <aside class="left">
+
+      <div class="execution-container flex align-center">
+        <div id="callStack" class="flex flex-column-reverse">
+          <!-- <div class="task flex justify-center align-center">T1</div>
+          <div class="task flex justify-center align-center">T2</div>
+          <div class="task flex justify-center align-center">T3</div> -->
+        </div>
+
+        <div class="info flex flex-column">
+          <div class="chips flex justify-around">
+            <div class="chip runner-active" id="runnerActiveChip">Running</div>
+            <div class="chip runner-stopped" id="runnerStoppedChip">Paused</div>
+          </div>
+
+          <h3 class="heading Concurrency">Concurrency: 3</h3>
+          <h3 class="heading running-tasks">Running Tasks: <span id="runningTasksCount"></span></h3>
+        </div>
+      </div>
+    </aside>
+    <aside class="right">
+      <div class="queue-container flex justify-center align-center">
+        <label for="taskQueue">Task Queue</label>
+        <!-- task queue -->
+        <div id="taskQueue" class="flex"></div>
+      </div>
+      <div class="info">
+        <h3 class="heading total-tasks">Tasks in queue: <span id="totalTasks"></span></h3>
+      </div>
+      <div class="actions">
+        <input type="button" value="Start Runner" id="runnerStartBtn" />
+        <input type="button" value="Stop Runner" id="runnerStopBtn" />
+      </div>
+    </aside>
+  </div>
+  <script src="./helper.js"></script>
+  <script src="./TaskRunner.js" type="module"></script>
+</body>
+
+</html>

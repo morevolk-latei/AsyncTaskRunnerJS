@@ -1,0 +1,321 @@
+body {
+  font-family: sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --dark-chocolate: #bd5d18;
+  --dark-forestgreen: #1a721a;
+}
+
+html,
+body {
+  height: 100vh;
+}
+
+body {
+  padding: 16px;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
+.flex-column-reverse {
+  flex-direction: column-reverse;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.justify-around {
+  justify-content: space-around;
+}
+
+.align-center {
+  align-items: center;
+}
+
+
+
+.container {
+  border: 4px double #0006;
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.app-heading {
+  position: absolute;
+  background-color: #fff;
+  left: 50%;
+  transform: translateX(-50%);
+  top: -14px;
+  padding: 0 6px;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+aside.left {
+  border: 1px solid #0003;
+  flex: 1;
+}
+
+aside.right {
+  border: 1px solid #0003;
+  flex: 1;
+}
+
+#taskQueue {
+  border: 3px solid #0005;
+  width: 80%;
+  height: 100px;
+  margin: 30px auto;
+  gap: 2.5px;
+  border-radius: 10px;
+  overflow-y: auto;
+  padding: 5px;
+}
+
+#taskQueue .task {
+  height: 100%;
+}
+
+#callStack .task {
+  position: relative;
+  height: 100px;
+  min-height: 100px;
+  z-index: 1;
+}
+
+#callStack .task::before {
+  position: absolute;
+  background: forestgreen;
+  z-index: 2;
+  top: 4px;
+  content: 'Running';
+  border-radius: 10px;
+  padding: 3px 8px;
+  color: #fff;
+  font-size: 0.85rem;
+  letter-spacing: 0.5px;
+  animation: fade-in-out 2s ease 0s infinite normal forwards;
+}
+
+@keyframes fade-in-out {
+
+  0%,
+  50%,
+  100% {
+    opacity: 1;
+  }
+
+  25%,
+  75% {
+    opacity: 0.5;
+  }
+}
+
+.task {
+  width: 100px;
+  background: azure;
+  border: 2px dashed #0006;
+  min-width: 100px;
+}
+
+div#taskQueue .task:first-child {
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+
+label[for=taskQueue] {
+  padding-left: 5%;
+}
+
+#callStack {
+  border: 3px solid #0005;
+  border-radius: 10px;
+  padding: 5px;
+  width: 200px;
+  gap: 3px;
+  /* margin-left: 50px; */
+  margin-top: 50px;
+  align-items: center;
+  height: 322px;
+  overflow: hidden;
+}
+
+.execution-container {
+  gap: 50px;
+  padding-left: 5%;
+}
+
+.heading.total-tasks {
+  padding-left: 5%;
+}
+
+aside.right .info {
+  margin: 5px 0 30px;
+}
+
+input#runnerStopBtn,
+input#runnerStartBtn {
+  appearance: none;
+  border: 3px solid #0006;
+  background: chocolate;
+  padding: 7px 10px;
+  font-size: 1.3rem;
+  border-radius: 10px;
+  color: #fff;
+  text-shadow: 1px 1px 1px #0003;
+  font-weight: bold;
+  letter-spacing: 0.6px;
+  font-family: system-ui;
+  margin-left: 5%;
+  transition: transform 100ms ease-out;
+}
+
+input#runnerStopBtn:hover {
+  cursor: pointer;
+  background: var(--dark-chocolate);
+}
+
+input#runnerStopBtn:hover:active,
+input#runnerStartBtn:hover:active {
+  transform: scale(0.9);
+}
+
+input#runnerStartBtn {
+  background: forestgreen;
+}
+
+input#runnerStartBtn:hover {
+  cursor: pointer;
+  background: var(--dark-forestgreen);
+}
+
+.actions {
+  margin-top: 80px;
+}
+
+
+.chips {
+  /* border: 2px solid #0008; */
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.chip {
+  background: lightgrey;
+  flex: 1;
+  text-align: center;
+  opacity: 0.4;
+  border: 2px solid #0005;
+  border-radius: 10px;
+}
+
+.chip:first-child {
+  border-right: 1px solid #fff8;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.chip:not(:first-child) {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  border-left: 1px solid #fff8;
+}
+
+.chip.runner-active.active {
+  background: forestgreen;
+  color: white;
+  opacity: 1;
+}
+
+.chip.runner-stopped.active {
+  background: chocolate;
+  color: white;
+  opacity: 1;
+}
+
+aside.left .info {
+  height: 150px;
+  justify-content: space-around;
+}
+
+/* animation */
+
+#taskQueue .task.remove {
+  /* transform: translate(-38px, -92px); */
+  /* transition: transform 250ms ease; */
+  animation: removeTaskAnimation 500ms ease 1 forwards;
+}
+
+#callStack .task.insert {
+  animation: addTaskAnimation 500ms ease 1 forwards;
+  transform: translateY(-312px);
+}
+
+#callStack .task.remove {
+  animation: removeRunningTaskAnimation 400ms ease 0s 1 normal forwards;
+  /* display: none; */
+}
+
+#callStack .task.remove::before {
+  content: 'Complete';
+  background-color: cornflowerblue;
+}
+
+@keyframes removeRunningTaskAnimation {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(0.6);
+    margin-left: -300px;
+  }
+
+  100% {
+    display: none;
+  }
+}
+
+@keyframes removeTaskAnimation {
+  0% {
+    /* display: initial; */
+  }
+
+  80% {
+    transform: translate(-38px, -92px);
+  }
+
+  99% {
+    margin-left: -105px;
+    /* margin-top: -105px; */
+  }
+
+  100% {
+    display: none;
+  }
+}
+
+@keyframes addTaskAnimation {
+  0% {}
+
+  100% {
+    transform: translateY(0);
+  }
+}
